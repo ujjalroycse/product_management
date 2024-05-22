@@ -6,7 +6,7 @@
             <div class="card mt-5">
                 <div class="card-body">
                     <div class="card-title">
-                        <h2>Add New Product</h2>
+                        <h2>Update "{{ $product->product_name }}" Product</h2>
                         <hr>
                     </div>
                     @if ( session('success') )
@@ -16,30 +16,34 @@
                         <p class="mb-0">{{ session('success') }}</p>
                         </div>
                     @endif
-                    <form action="{{ url('/insert-product') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ url('/update-product') }}/{{ $product->id }}" method="post" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="mb-3">
                             <label for="product_name" class="form-label">Product Name *</label>
-                            <input type="text" value="{{ old('product_name') }}" class="form-control" name="product_name" id="product_name"/>
+                            <input type="text" value="{{ old('product_name',$product->product_name) }}" class="form-control" name="product_name" id="product_name"/>
                             @if ($errors->has('product_name'))
                                 <span class="text-danger">{{$errors->first('product_name')}}</span>
                             @endif
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Product Description *</label>
-                            <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
+                            <textarea class="form-control" name="description" id="description">{{ old('description',$product->description) }}</textarea>
                             @if ($errors->has('description'))
                             <span class="text-danger">{{$errors->first('description')}}</span>
                         @endif
                         </div>
                         <div class="mb-3">
                             <label for="photo" class="form-label">Product Photo *</label>
+                            @if ( $product->image )
+                                <img width="100" src="{{asset('productImages')}}/{{$product->image}}" alt="">
+                            @endif
                             <input type="file" value="{{ old('photo') }}" class="form-control" name="photo" id="photo"/>
                             @if ($errors->has('photo'))
                             <span class="text-danger">{{$errors->first('photo')}}</span>
                         @endif
                         </div>
-                        <button class="btn btn-dark" type="submit">Add Product</button>
+                        <button class="btn btn-success" type="submit">Update</button>
                     </form>
                 </div>
             </div>
