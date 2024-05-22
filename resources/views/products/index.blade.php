@@ -25,7 +25,7 @@
                 <td>{{ $product->product_name }}</td>
                 <td>{{ $product->description }}</td>
                 <td>
-                    <img width="40" src="{{asset('productImages')}}/{{$product->image}}" alt="N\A">
+                   <a href="{{ url('show-product') }}/{{ $product->id }}"><img width="40" src="{{asset('productImages')}}/{{$product->image}}" alt="N\A"></a>
                 </td>
                 <td>
                     <a class="btn btn-sm btn-outline-info" href="{{ url('edit-product') }}/{{ $product->id }}">Edit</a>

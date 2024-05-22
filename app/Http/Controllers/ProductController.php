@@ -70,4 +70,9 @@ class ProductController extends Controller
         return back()->with('success', 'Product Deleted Successfully!!!');
     }
 
+    function showProduct($id){
+        $product = Product::where('id',$id)->first();
+        return view('products.show_product',['product'=>$product]);
+    }
+
 }
